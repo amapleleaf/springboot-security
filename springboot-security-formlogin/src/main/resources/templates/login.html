@@ -18,7 +18,9 @@
 		</div>
 		<div class="content">
 			<p th:if="${param.logout}" class="alert">You have been logged out</p>
-			<p th:if="${param.error}" class="alert alert-error">There was an error, please try again</p>
+			<p th:if="${param.error}" class="alert alert-error" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+
+			</p>
 			<h2>Login with Username and Password</h2>
 			<form name="form" th:action="@{/login}" action="/login" method="POST">
 				<fieldset>
