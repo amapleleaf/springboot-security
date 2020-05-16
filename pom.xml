@@ -23,6 +23,7 @@
     </properties>
     <modules>
         <module>springboot-security-formlogin</module>
+        <module>springboot-security-jsonlogin</module>
     </modules>
     <build>
         <plugins>
