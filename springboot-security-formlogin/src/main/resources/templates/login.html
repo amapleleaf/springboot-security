@@ -5,7 +5,7 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
 	href="../../css/bootstrap.min.css" />
 </head>
-<body onload="document.f.username.focus();">
+<body>
 	<div class="container">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -19,6 +19,7 @@
 		<div class="content">
 			<p th:if="${param.logout}" class="alert">You have been logged out</p>
 			<p th:if="${param.error}" class="alert alert-error" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+			<p th:if="${param.error}" class="alert alert-error" th:text="${session.error_info}">
 
 			</p>
 			<h2>Login with Username and Password</h2>

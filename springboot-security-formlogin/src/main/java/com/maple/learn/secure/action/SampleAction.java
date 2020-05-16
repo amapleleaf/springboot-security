@@ -16,6 +16,7 @@ public class SampleAction {
         model.put("date", new Date());
         return "home";
     }
+
     @RequestMapping("/foo")
     public String foo() {
         throw new RuntimeException("Expected exception in controller");

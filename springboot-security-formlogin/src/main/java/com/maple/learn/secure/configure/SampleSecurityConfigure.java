@@ -13,18 +13,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
     @Autowired
     private  MyUserDetailsService myUserDetailsService;
+    @Autowired
+    private  MyAuthenctiationSuccessHandler myAuthenctiationSuccessHandler;
+    @Autowired
+    private MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //允许所有用户访问"/"和"/home"
         http.authorizeRequests()
-               // .antMatchers("/", "/css/**").permitAll()
+                .antMatchers("/login").permitAll()
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 //指定登录页是"/login"
-                .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/home")//登录成功后默认跳转到"/home"
+                .loginPage("/login")
+
+                .successHandler(myAuthenctiationSuccessHandler)
+                //.failureUrl("/login?error=true")
+                .failureHandler(myAuthenctiationFailureHandler)
+                //.defaultSuccessUrl("/home")//登录成功后默认跳转到"/home"
                 .permitAll()
                 .and()
                 .logout()
