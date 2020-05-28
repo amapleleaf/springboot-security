@@ -19,20 +19,24 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
     private MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //http.sessionManagement().invalidSessionUrl();
         //允许所有用户访问"/"和"/home"
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login","/timeout").permitAll()
+                //.antMatchers("/user/**").hasRole("USER")
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
+                .and()
+                .sessionManagement().invalidSessionUrl("/timeout")
                 .and()
                 .formLogin()
                 //指定登录页是"/login"
                 .loginPage("/login")
 
                 .successHandler(myAuthenctiationSuccessHandler)
-                //.failureUrl("/login?error=true")
+                //.defaultSuccessUrl("/login?error=true")//会创建默认的successHandler
                 .failureHandler(myAuthenctiationFailureHandler)
-                //.defaultSuccessUrl("/home")//登录成功后默认跳转到"/home"
+                //.failureUrl("/home")//会创建默认的failureHandler
                 .permitAll()
                 .and()
                 .logout()

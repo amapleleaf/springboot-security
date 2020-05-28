@@ -22,4 +22,9 @@ public class SampleAction {
         throw new RuntimeException("Expected exception in controller");
     }
 
+    @RequestMapping("/timeout")
+    public String timeout() {
+        return "timeout";
+    }
+
 }
