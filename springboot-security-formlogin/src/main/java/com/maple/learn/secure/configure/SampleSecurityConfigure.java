@@ -37,7 +37,6 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/userlogin")
                 //指定登录页是"/login" loginPage the login page to redirect to if authentication is required
                 .loginPage("/login")
-
                 .successHandler(myAuthenctiationSuccessHandler)
                 //.defaultSuccessUrl("/login?error=true")//会创建默认的successHandler
                 .failureHandler(myAuthenctiationFailureHandler)
@@ -46,8 +45,9 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")//退出登录后的默认url是"/login"
-                .permitAll();
-        //http.exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint());
+                .permitAll()
+                .and();
+        http.exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint());
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
