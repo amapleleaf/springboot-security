@@ -21,16 +21,21 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //http.sessionManagement().invalidSessionUrl();
         //允许所有用户访问"/"和"/home"
-        http.authorizeRequests()
-                .antMatchers("/login","/timeout").permitAll()
+        http
+                //.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/login","/userlogin","/timeout").permitAll()
                 //.antMatchers("/user/**").hasRole("USER")
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
-                .sessionManagement().invalidSessionUrl("/timeout")
+                .sessionManagement()
+                //.invalidSessionUrl("/timeout")
                 .and()
                 .formLogin()
-                //指定登录页是"/login"
+                //the URL to validate username and password
+                .loginProcessingUrl("/userlogin")
+                //指定登录页是"/login" loginPage the login page to redirect to if authentication is required
                 .loginPage("/login")
 
                 .successHandler(myAuthenctiationSuccessHandler)
@@ -42,6 +47,7 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/login")//退出登录后的默认url是"/login"
                 .permitAll();
+        //http.exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint());
     }
     @Override
     public void configure(WebSecurity web) throws Exception {

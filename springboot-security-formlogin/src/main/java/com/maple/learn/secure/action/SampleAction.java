@@ -1,7 +1,9 @@
 package com.maple.learn.secure.action;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
@@ -17,9 +19,15 @@ public class SampleAction {
         return "home";
     }
 
-    @RequestMapping("/foo")
-    public String foo() {
-        throw new RuntimeException("Expected exception in controller");
+    @RequestMapping("/admin/page")
+    public String adminpage(Model model) {
+        model.addAttribute("reqinfo","/admin/page");
+        return "common";
+    }
+    @RequestMapping("/user/page")
+    public String userpage(Model model) {
+        model.addAttribute("reqinfo","/user/page");
+        return "common";
     }
 
     @RequestMapping("/timeout")

@@ -1,0 +1,13 @@
+<div th:fragment="mynavbar">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="http://www.thymeleaf.org"> Thymeleaf -
+				Plain </a>
+			<ul class="nav">
+				<li><a th:href="@{/home}"> Home </a></li>
+				<li><a th:href="@{/admin/page}"> /admin/page </a></li>
+				<li><a th:href="@{/user/page}"> /user/page </a></li>
+			</ul>
+		</div>
+	</div>
+</div>

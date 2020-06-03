@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>timeout</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	href="../../css/bootstrap.min.css" />
+</head>
+<body>
+	<div class="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="http://www.thymeleaf.org"> Thymeleaf -
+					Plain </a>
+				<ul class="nav">
+					<li><a th:href="@{/home}"> Home </a></li>
+					<li><a th:href="@{/admin/page}"> /admin/page </a></li>
+					<li><a th:href="@{/user/page}"> /user/page </a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+		<div style="text-align: center;font-size: 20px;" th:text="${reqinfo}"></div>
+	</div>
+</body>
+</html>
