@@ -36,7 +36,8 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
                 //the URL to validate username and password
                 .loginProcessingUrl("/userlogin")
                 //指定登录页是"/login" loginPage the login page to redirect to if authentication is required
-                .loginPage("/login")
+                //该方法会创建默认的LoginUrlAuthenticationEntryPoint，如果自定义AuthenticationEntryPoint，此处则无需设置
+                //.loginPage("/login")
                 .successHandler(myAuthenctiationSuccessHandler)
                 //.defaultSuccessUrl("/login?error=true")//会创建默认的successHandler
                 .failureHandler(myAuthenctiationFailureHandler)
