@@ -20,12 +20,24 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        String passpord = new BCryptPasswordEncoder().encode("maple");
-        UserDetails user = new User("maple", passpord, authList);
-        logger.info("{}-->{}", userName, passpord);
+        UserDetails user=null;
+        if(userName.equals("admin")){
+            List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+            authList.add(new SimpleGrantedAuthority("USER"));
+            authList.add(new SimpleGrantedAuthority("ADMIN"));
+            String passpord = new BCryptPasswordEncoder().encode("admin");
+            user = new User("admin", passpord, authList);
+            logger.info("{}-->{}", userName, passpord);
+        }else if(userName.equals("user")){
+            List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+            authList.add(new SimpleGrantedAuthority("USER"));
+            String passpord = new BCryptPasswordEncoder().encode("user");
+            user = new User("user", passpord, authList);
+            logger.info("{}-->{}", userName, passpord);
+        }else{
+            throw new UsernameNotFoundException("用户不存在！");
+        }
+
         return user;
     }
 }
