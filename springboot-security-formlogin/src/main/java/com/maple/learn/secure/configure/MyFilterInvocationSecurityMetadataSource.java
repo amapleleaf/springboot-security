@@ -18,6 +18,7 @@ import java.util.Map;
 public class MyFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
     private Map<RequestMatcher, Collection<ConfigAttribute>> allRoleSource = new HashMap<>();
     public MyFilterInvocationSecurityMetadataSource(){
+        //模拟从数据库加载角色URL权限信息
         Map<String,String> urlRoleMap = new HashMap<String,String>(){{
             put("/open/**","ROLE_ANONYMOUS");
             put("/home","ADMIN,USER");
@@ -31,6 +32,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
         allRoleSource = loadRequestMap;
     }
 
+    //返回当前URL允许访问的角色列表
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         FilterInvocation fi = (FilterInvocation) object;

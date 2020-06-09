@@ -25,18 +25,17 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/login","/userlogin","/timeout").permitAll()
             //.accessDecisionManager()
-            //.withObjectPostProcessor()
             //.antMatchers("/user/**").hasRole("USER")
             //其他地址的访问均需验证权限
             .anyRequest().authenticated()
             .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-
                 public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
                     fsi.setAccessDecisionManager(new MyAccessDecisionManager());
                     fsi.setSecurityMetadataSource(new MyFilterInvocationSecurityMetadataSource());
                     return fsi;
                 }
             });
+
         http.sessionManagement()
             //.invalidSessionUrl("/timeout")
             .and()
@@ -56,7 +55,10 @@ public class SampleSecurityConfigure extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/login")//退出登录后的默认url是"/login"
             .permitAll()
             .and();
-        http.exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint());
+
+        http.exceptionHandling()
+            .authenticationEntryPoint(new MyAuthenticationEntryPoint());
+            //.accessDeniedHandler(new MyAccessDeineHandler())
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
